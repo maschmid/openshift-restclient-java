@@ -172,10 +172,14 @@ public class UrlConnectionHttpClient implements IHttpClient {
 					url, userAgent, acceptedVersion, acceptedMediaType, sslAuthorizationCallback, timeout);
 			// PATCH not yet supported by JVM
 			setRequestMethod(httpMethod, connection);
+
 			if(LOGGER.isDebugEnabled()) {
 				LOGGER.debug(String.format("Request Properties: %s", connection.getRequestProperties()));
 				LOGGER.debug(String.format("Request Method: %s", connection.getRequestMethod()));
 			}
+
+            connection.setRequestProperty(PROPERTY_CONTENT_TYPE, "application/json");
+
 			if(resource != null){
 				if(LOGGER.isDebugEnabled()) LOGGER.debug(resource.toJson(false));
 				connection.setDoOutput(true);
